@@ -5,168 +5,112 @@ import {
   StyleSheet,
   Text,
   Image,
-  TouchableOpacity,
-  StatusBar,
+  ScrollView,
+  SafeAreaView,
 } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { useFonts } from 'expo-font';
+import MenuBottom from './components/MenuBottom'
 
-
-export default function Login({ navigation }) {
-  const [firstName, setFirstName] = useState('');
-  const [password, setPassword] = useState('');
-  const [showPassword, setShowPassword] = useState(false);
-
-  const handleLogin = () => {
-    navigation.navigate('Home');
-  };
+export default function Home (){
+  const [fontsLoaded] = useFonts({
+    Inter: require('./assets/static/Inter_18pt-Bold.ttf'),
+  });
+  if (!fontsLoaded) return null;
+  
 
   return (
-    <>
-      <StatusBar
-        backgroundColor="#001B3D"
-      />
+    <SafeAreaView style={{flex: 1}}>
       <View style={styles.container}>
-        <KeyboardAwareScrollView
-          contentContainerStyle={styles.scrollContainer}
-          enableOnAndroid
-          extraScrollHeight={30}
-          keyboardShouldPersistTaps="handled"
-          showsVerticalScrollIndicator={false}
-        >
-          <Image
-            source={require('./assets/LogoNutriExpress.png')}
-            style={styles.logo}
-            resizeMode="contain"
-          />
-          <View style={styles.section_1}>
-            <Text style={styles.label}>Login</Text>
-            <TextInput
-              style={styles.input}
-              placeholder="E-mail ou CPF"
-              placeholderTextColor="#ccc"
-              value={firstName}
-              onChangeText={setFirstName}
-            />
-
-            <Text style={styles.label}>Senha</Text>
-            <View style={styles.inputWrapper}>
-              <TextInput
-                style={styles.input}
-                placeholder="Senha"
-                placeholderTextColor="#ccc"
-                value={password}
-                onChangeText={setPassword}
-                secureTextEntry={!showPassword}
-              />
-              <TouchableOpacity
-                style={styles.icon}
-                onPress={() => setShowPassword(!showPassword)}
-              >
-                <Ionicons
-                  name={showPassword ? 'eye' : 'eye-off'}
-                  size={22}
-                  color="white"
-                />
-              </TouchableOpacity>
-            </View>
-
-            <TouchableOpacity>
-              <Text style={styles.esqueciSenha}>Esqueci minha senha</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity style={styles.button} onPress={handleLogin}>
-              <Text style={styles.buttonText}>Entrar</Text>
-            </TouchableOpacity>
-          </View>
-        </KeyboardAwareScrollView>
-
-        <View style={styles.noAcount}>
-          <Text style={styles.cadastrar}>
-            Não tem uma conta?
-            <TouchableOpacity onPress={handleLogin}>
-              <Text style={styles.underCad}> Cadastre aqui</Text>
-            </TouchableOpacity>
-          </Text>
-        </View>
+      <View style={styles.Header}>
+      <Text style={{color: '#fff', position: 'absolute', top: 15, left: -15,}}>Rua, 100 ▼</Text>
+          <Image 
+        source={require('./assets/bell.png')} 
+        style={{ width: 42, height: 45.5, position: 'absolute', top: 0, right: -30, }} 
+      />
       </View>
-    </>
+      <Image 
+        source={require('./assets/LogoNutriExpress.png')} 
+        style={{ width: 200, height: 200, marginTop: 20 }} 
+      />
+      <TextInput
+      style={styles.Pesquisa}
+      placeholder="🔎 Pesquisar Comidas"
+      placeholderTextColor="#000"
+      />
+      <View style={styles.Section1}>
+        <Text style={{fontSize:20, marginVertical: 10, marginLeft: 20, fontWeight: 'bold'}}>Categorias</Text>
+        <View style={{flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between',      
+        gap: 5, marginHorizontal: 40}}>
+          <Image 
+            source={require('./assets/Card1.png')} 
+            style={{ width: 147, height: 87}} 
+          />
+          <Image 
+            source={require('./assets/Card2.png')} 
+            style={{ width: 147, height: 87}} 
+          />
+          <Image 
+            source={require('./assets/Card3.png')} 
+            style={{ width: 147, height: 87}} 
+          />
+          <Image 
+            source={require('./assets/Card4.png')} 
+            style={{ width: 147, height: 87}} 
+          />
+        </View>
+        <Text style={{fontSize:20, marginTop: 10, marginBottom: 5, marginLeft: 20, fontWeight: 'bold'}}>Mais Pedido 🔥</Text>
+
+        <ScrollView horizontal={true}>
+        <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'start', alignItems: 'center',
+        paddingHorizontal: 40}}>
+          <Image source={require('./assets/salada.png')} style={{width: 170, height: 110, borderRadius: 10}} />
+          <View style={{ marginLeft: 20}}>
+            <Text style={{fontSize: 20, fontWeight: 'bold'}}>Salada Simples</Text>
+            <Text style={{fontSize: 15, fontWeight: 200, marginLeft: 10}}>10-20 min.</Text>
+            <Text style={{fontSize: 15, fontWeight: 400, color: '#368212', marginLeft: 10}}>R$ 30,00</Text>
+          </View>
+        </View>
+        <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'start', alignItems: 'center',
+        paddingHorizontal: 40}}>
+          <Image source={require('./assets/salada.png')} style={{width: 170, height: 110, borderRadius: 10}} />
+          <View style={{ marginLeft: 20}}>
+            <Text style={{fontSize: 20, fontWeight: 'bold'}}>Salada Simples</Text>
+            <Text style={{fontSize: 15, fontWeight: 200, marginLeft: 10}}>10-20 min.</Text>
+            <Text style={{fontSize: 15, fontWeight: 400, color: '#368212', marginLeft: 10}}>R$ 30,00</Text>
+          </View>
+        </View>
+        </ScrollView>
+      <MenuBottom action='inicio' />
+      </View>
+    </View>
+    </SafeAreaView>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#001B3D',
-  },
-  scrollContainer: {
     alignItems: 'center',
-    paddingTop: 60,
-    paddingBottom: 100,
   },
-  logo: {
-    width: 200,
-    height: 200,
-    marginBottom: 20,
+  Pesquisa: {
+    backgroundColor: '#fff',
+    width: '80%',
+    padding: 10,
+    borderRadius: 5
   },
-  section_1: {
-    width: '85%',
-  },
-  label: {
-    color: 'white',
-    fontSize: 16,
-    fontWeight: 'bold',
-    marginBottom: 5,
-  },
-  input: {
+  Section1: {
+    backgroundColor: '#ffffff',
     width: '100%',
-    padding: 12,
-    borderWidth: 1,
-    borderColor: '#fff',
-    backgroundColor: 'rgba(255, 255, 255, 0.15)',
-    color: 'white',
-    borderRadius: 5,
-    marginBottom: 20,
-  },
-  inputWrapper: {
-    position: 'relative',
-    justifyContent: 'center',
-  },
-  icon: {
-    position: 'absolute',
-    right: 10,
-    top: 10,
-  },
-  esqueciSenha: {
-    color: 'rgba(255, 255, 255, 0.7)',
-    textDecorationLine: 'underline',
-    marginBottom: 20,
-  },
-  button: {
-    backgroundColor: '#2DBE60',
-    padding: 14,
-    borderRadius: 5,
-    alignItems: 'center',
-    marginTop: 10,
-  },
-  buttonText: {
-    color: 'white',
-    fontWeight: 'bold',
-    fontSize: 16,
-  },
-  noAcount: {
+    height: 500,
     position: 'absolute',
     bottom: 0,
-    width: '100%',
-    backgroundColor: '#11447D',
-    padding: 18,
-    alignItems: 'center',
+    borderTopLeftRadius: 50,
+    borderTopRightRadius: 50,
+    paddingTop: 20,
   },
-  cadastrar: {
-    color: 'white',
-  },
-  underCad: {
-    textDecorationLine: 'underline',
-    color: '#2DBE60',
+  Header: {
+    width: '80%',
+    marginTop: 50,
   },
 });
