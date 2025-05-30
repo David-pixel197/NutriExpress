@@ -7,6 +7,7 @@ import {
   Image,
   ScrollView,
   SafeAreaView,
+  Dimensions,
 } from 'react-native';
 import { useFonts } from 'expo-font';
 import MenuBottom from './components/MenuBottom'
@@ -16,17 +17,20 @@ export default function Home (){
     Inter: require('./assets/static/Inter_18pt-Bold.ttf'),
   });
   if (!fontsLoaded) return null;
-  
+  const [expanded, setExpanded] = useState(false);
+  const screenHeight = Dimensions.get('window').height
 
   return (
     <SafeAreaView style={{flex: 1}}>
       <View style={styles.container}>
       <View style={styles.Header}>
       <Text style={{color: '#fff', position: 'absolute', top: 15, left: -15,}}>Rua, 100 ▼</Text>
-          <Image 
-        source={require('./assets/bell.png')} 
-        style={{ width: 42, height: 45.5, position: 'absolute', top: 0, right: -30, }} 
+      <View style={{backgroundColor: '#fff', height: 45, width: 45, borderRadius: '100%', position: 'absolute', top: 5, right: -20, alignItems: 'center', justifyContent: 'center'}}>
+        <Image 
+          source={require('./assets/card.png')} 
+          style={{ width: 30, height: 30, tintColor: '#000' }} 
       />
+      </View>
       </View>
       <Image 
         source={require('./assets/LogoNutriExpress.png')} 
@@ -37,48 +41,149 @@ export default function Home (){
       placeholder="🔎 Pesquisar Comidas"
       placeholderTextColor="#000"
       />
-      <View style={styles.Section1}>
-        <Text style={{fontSize:20, marginVertical: 10, marginLeft: 20, fontWeight: 'bold'}}>Categorias</Text>
-        <View style={{flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between',      
-        gap: 5, marginHorizontal: 40}}>
-          <Image 
-            source={require('./assets/Card1.png')} 
-            style={{ width: 147, height: 87}} 
-          />
-          <Image 
-            source={require('./assets/Card2.png')} 
-            style={{ width: 147, height: 87}} 
-          />
-          <Image 
-            source={require('./assets/Card3.png')} 
-            style={{ width: 147, height: 87}} 
-          />
-          <Image 
-            source={require('./assets/Card4.png')} 
-            style={{ width: 147, height: 87}} 
-          />
-        </View>
-        <Text style={{fontSize:20, marginTop: 10, marginBottom: 5, marginLeft: 20, fontWeight: 'bold'}}>Mais Pedido 🔥</Text>
+      <View
+          style={[
+            styles.Section1,
+            expanded && {
+              height: screenHeight,
+              borderTopLeftRadius: 0,
+              borderTopRightRadius: 0,
+              bottom: 0,
+              top: 0,
+              position: 'absolute',
+              zIndex: 10,
+            }
+          ]}
+        >
+        <ScrollView showsVerticalScrollIndicator={false} onScrollBeginDrag={() => setExpanded(true)}>
+          {expanded && (
+          <Text
+            style={{
+              textAlign: 'right',
+              fontWeight: 'bold',
+              fontSize: 16,
+              color: '#007AFF',
+              marginBottom: 10,
+              marginTop: 20,
+              marginRight: 20,
+            }}
+            onPress={() => setExpanded(false)}
+          >
+            Fechar▼
+          </Text>
+          )}
+          <Text style={{fontSize:20, marginVertical: 10, marginLeft: 20, fontWeight: 'bold'}}>Categorias</Text>
+          <View style={{flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between',      
+          gap: 5, marginHorizontal: 40}}>
+            <Image 
+              source={require('./assets/Card1.png')} 
+              style={{ width: 147, height: 87}} 
+            />
+            <Image 
+              source={require('./assets/Card2.png')} 
+              style={{ width: 147, height: 87}} 
+            />
+            <Image 
+              source={require('./assets/Card3.png')} 
+              style={{ width: 147, height: 87}} 
+            />
+            <Image 
+              source={require('./assets/Card4.png')} 
+              style={{ width: 147, height: 87}} 
+            />
+          </View>
+          <Text style={{fontSize:20, marginTop: 10, marginBottom: 5, marginLeft: 20, fontWeight: 'bold'}}>Mais Pedido 🔥</Text>
+          <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+          <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'start', alignItems: 'center',
+          paddingHorizontal: 40, marginBottom: 20}}>
+            <Image source={require('./assets/salada.png')} style={{width: 150, height: 90, borderRadius: 10}} />
+            <View style={{ marginLeft: 20}}>
+              <Text style={{fontSize: 20, fontWeight: 'bold'}}>Salada Simples</Text>
+              <Text style={{fontSize: 15, fontWeight: 200, marginLeft: 10}}>10-20 min.</Text>
+              <Text style={{fontSize: 15, fontWeight: 400, color: '#368212', marginLeft: 10}}>R$ 20,00 + Frete</Text>
+            </View>
+          </View>
+          <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'start', alignItems: 'center',
+          paddingHorizontal: 40, marginBottom: 20}}>
+            <Image source={require('./assets/Prato 2.jpeg')} style={{width: 150, height: 90, borderRadius: 10}} />
+            <View style={{ marginLeft: 20}}>
+              <Text style={{fontSize: 20, fontWeight: 'bold'}}>Salada Completa</Text>
+              <Text style={{fontSize: 15, fontWeight: 200, marginLeft: 10}}>15-20 min.</Text>
+              <Text style={{fontSize: 15, fontWeight: 400, color: '#368212', marginLeft: 10}}>R$ 25,00 + Frete</Text>
+            </View>
+          </View>
+          <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'start', alignItems: 'center',
+          paddingHorizontal: 40, marginBottom: 20}}>
+            <Image source={require('./assets/Prato 1.jpeg')} style={{width: 150, height: 90, borderRadius: 10}} />
+            <View style={{ marginLeft: 20}}>
+              <Text style={{fontSize: 20, fontWeight: 'bold'}}>Salada Premium</Text>
+              <Text style={{fontSize: 15, fontWeight: 200, marginLeft: 10}}>10-30 min.</Text>
+              <Text style={{fontSize: 15, fontWeight: 400, color: '#368212', marginLeft: 10}}>R$ 30,00 + Frete</Text>
+            </View>
+          </View>
+          </ScrollView>
 
-        <ScrollView horizontal={true}>
-        <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'start', alignItems: 'center',
-        paddingHorizontal: 40}}>
-          <Image source={require('./assets/salada.png')} style={{width: 170, height: 110, borderRadius: 10}} />
-          <View style={{ marginLeft: 20}}>
-            <Text style={{fontSize: 20, fontWeight: 'bold'}}>Salada Simples</Text>
-            <Text style={{fontSize: 15, fontWeight: 200, marginLeft: 10}}>10-20 min.</Text>
-            <Text style={{fontSize: 15, fontWeight: 400, color: '#368212', marginLeft: 10}}>R$ 30,00</Text>
+          <Text style={{fontSize:20, marginTop: 10, marginBottom: 5, marginLeft: 20, fontWeight: 'bold'}}>Mais Rápidos ⏳</Text>
+          <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+          <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'start', alignItems: 'center',
+          paddingHorizontal: 40, marginBottom: 20}}>
+            <Image source={require('./assets/Açai.jpeg')} style={{width: 150, height: 90, borderRadius: 10}} />
+            <View style={{ marginLeft: 20}}>
+              <Text style={{fontSize: 20, fontWeight: 'bold'}}>Açai Tradicional</Text>
+              <Text style={{fontSize: 15, fontWeight: 200, marginLeft: 10}}>10-15 min.</Text>
+              <Text style={{fontSize: 15, fontWeight: 400, color: '#368212', marginLeft: 10}}>R$ 15,00 + Frete</Text>
+            </View>
           </View>
-        </View>
-        <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'start', alignItems: 'center',
-        paddingHorizontal: 40}}>
-          <Image source={require('./assets/salada.png')} style={{width: 170, height: 110, borderRadius: 10}} />
-          <View style={{ marginLeft: 20}}>
-            <Text style={{fontSize: 20, fontWeight: 'bold'}}>Salada Simples</Text>
-            <Text style={{fontSize: 15, fontWeight: 200, marginLeft: 10}}>10-20 min.</Text>
-            <Text style={{fontSize: 15, fontWeight: 400, color: '#368212', marginLeft: 10}}>R$ 30,00</Text>
+          <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'start', alignItems: 'center',
+          paddingHorizontal: 40, marginBottom: 20}}>
+            <Image source={require('./assets/Feijoada.jpeg')} style={{width: 150, height: 90, borderRadius: 10}} />
+            <View style={{ marginLeft: 20}}>
+              <Text style={{fontSize: 20, fontWeight: 'bold'}}>Feijoada Fit</Text>
+              <Text style={{fontSize: 15, fontWeight: 200, marginLeft: 10}}>15-20 min.</Text>
+              <Text style={{fontSize: 15, fontWeight: 400, color: '#368212', marginLeft: 10}}>R$ 25,00 + Frete</Text>
+            </View>
           </View>
-        </View>
+          <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'start', alignItems: 'center',
+          paddingHorizontal: 40, marginBottom: 20}}>
+            <Image source={require('./assets/Prato Arroz e Feijão.jpeg')} style={{width: 150, height: 90, borderRadius: 10}} />
+            <View style={{ marginLeft: 20}}>
+              <Text style={{fontSize: 20, fontWeight: 'bold'}}>PF Proteico</Text>
+              <Text style={{fontSize: 15, fontWeight: 200, marginLeft: 10}}>10-30 min.</Text>
+              <Text style={{fontSize: 15, fontWeight: 400, color: '#368212', marginLeft: 10}}>R$ 30,00 + Frete</Text>
+            </View>
+          </View>
+          </ScrollView>
+
+          <Text style={{fontSize:20, marginTop: 10, marginBottom: 5, marginLeft: 20, fontWeight: 'bold'}}>Promoções 🤑</Text>
+          <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+          <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'start', alignItems: 'center',
+          paddingHorizontal: 40, marginBottom: 20}}>
+            <Image source={require('./assets/Lasanha.jpeg')} style={{width: 150, height: 90, borderRadius: 10}} />
+            <View style={{ marginLeft: 20}}>
+              <Text style={{fontSize: 20, fontWeight: 'bold'}}>Lasanha</Text>
+              <Text style={{fontSize: 15, fontWeight: 200, marginLeft: 10}}>5-15 min.</Text>
+              <Text style={{fontSize: 15, fontWeight: 400, color: '#368212', marginLeft: 10}}>R$ 15,00 + Frete</Text>
+            </View>
+          </View>
+          <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'start', alignItems: 'center',
+          paddingHorizontal: 40, marginBottom: 20}}>
+            <Image source={require('./assets/Hamburger.jpeg')} style={{width: 150, height: 90, borderRadius: 10}} />
+            <View style={{ marginLeft: 20}}>
+              <Text style={{fontSize: 20, fontWeight: 'bold'}}>Hambúrguer</Text>
+              <Text style={{fontSize: 15, fontWeight: 200, marginLeft: 10}}>15-20 min.</Text>
+              <Text style={{fontSize: 15, fontWeight: 400, color: '#368212', marginLeft: 10}}>R$ 25,00 + Frete</Text>
+            </View>
+          </View>
+          <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'start', alignItems: 'center',
+          paddingHorizontal: 40, marginBottom: 20}}>
+            <Image source={require('./assets/Sorvete.jpeg')} style={{width: 150, height: 90, borderRadius: 10}} />
+            <View style={{ marginLeft: 20}}>
+              <Text style={{fontSize: 20, fontWeight: 'bold'}}>Sorvete</Text>
+              <Text style={{fontSize: 15, fontWeight: 200, marginLeft: 10}}>10-30 min.</Text>
+              <Text style={{fontSize: 15, fontWeight: 400, color: '#368212', marginLeft: 10}}>R$ 30,00 + Frete</Text>
+            </View>
+          </View>
+          </ScrollView>
         </ScrollView>
       <MenuBottom action='inicio' />
       </View>

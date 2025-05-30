@@ -5,112 +5,164 @@ import {
   StyleSheet,
   Text,
   Image,
-  ScrollView,
-  SafeAreaView,
+  TouchableOpacity,
 } from 'react-native';
-import { useFonts } from 'expo-font';
-import MenuBottom from './components/MenuBottom'
+import { Ionicons } from '@expo/vector-icons';
 
-export default function Home (){
-  const [fontsLoaded] = useFonts({
-    Inter: require('./assets/static/Inter_18pt-Bold.ttf'),
-  });
-  if (!fontsLoaded) return null;
-  
+export default function Login({ navigation }) {
+  const [firstName, setFirstName] = useState('');
+  const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleLogin = () => {
+    navigation.navigate('Prefer');
+  };
 
   return (
-    <SafeAreaView style={{flex: 1}}>
-      <View style={styles.container}>
-      <View style={styles.Header}>
-      <Text style={{color: '#fff', position: 'absolute', top: 15, left: -15,}}>Rua, 100 ▼</Text>
-          <Image 
-        source={require('./assets/bell.png')} 
-        style={{ width: 42, height: 45.5, position: 'absolute', top: 0, right: -30, }} 
+    <View style={styles.container}>
+      <Image
+        source={require('./assets/LogoNutriExpress.png')}
+        style={{ width: 200, height: 200 }}
       />
-      </View>
-      <Image 
-        source={require('./assets/LogoNutriExpress.png')} 
-        style={{ width: 200, height: 200, marginTop: 20 }} 
-      />
-      <TextInput
-      style={styles.Pesquisa}
-      placeholder="🔎 Pesquisar Comidas"
-      placeholderTextColor="#000"
-      />
-      <View style={styles.Section1}>
-        <Text style={{fontSize:20, marginVertical: 10, marginLeft: 20, fontWeight: 'bold'}}>Categorias</Text>
-        <View style={{flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between',      
-        gap: 5, marginHorizontal: 40}}>
-          <Image 
-            source={require('./assets/Card1.png')} 
-            style={{ width: 147, height: 87}} 
-          />
-          <Image 
-            source={require('./assets/Card2.png')} 
-            style={{ width: 147, height: 87}} 
-          />
-          <Image 
-            source={require('./assets/Card3.png')} 
-            style={{ width: 147, height: 87}} 
-          />
-          <Image 
-            source={require('./assets/Card4.png')} 
-            style={{ width: 147, height: 87}} 
-          />
-        </View>
-        <Text style={{fontSize:20, marginTop: 10, marginBottom: 5, marginLeft: 20, fontWeight: 'bold'}}>Mais Pedido 🔥</Text>
+      <View style={styles.section_1}>
+        <Text style={styles.label}>LOGIN</Text>
+        <TextInput
+          style={styles.input}
+          placeholder="Digite seu login..."
+          placeholderTextColor="#ccc"
+          value={firstName}
+          onChangeText={setFirstName}
+        />
 
-        <ScrollView horizontal={true}>
-        <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'start', alignItems: 'center',
-        paddingHorizontal: 40}}>
-          <Image source={require('./assets/salada.png')} style={{width: 170, height: 110, borderRadius: 10}} />
-          <View style={{ marginLeft: 20}}>
-            <Text style={{fontSize: 20, fontWeight: 'bold'}}>Salada Simples</Text>
-            <Text style={{fontSize: 15, fontWeight: 200, marginLeft: 10}}>10-20 min.</Text>
-            <Text style={{fontSize: 15, fontWeight: 400, color: '#368212', marginLeft: 10}}>R$ 30,00</Text>
-          </View>
+        <Text style={styles.label}>SENHA</Text>
+        <View style={styles.inputWrapper}>
+          <TextInput
+            style={styles.inputSenha}
+            placeholder="Digite sua senha..."
+            placeholderTextColor="#ccc"
+            value={password}
+            onChangeText={setPassword}
+            secureTextEntry={!showPassword}
+          />
+          <TouchableOpacity
+            style={styles.icon}
+            onPress={() => setShowPassword(!showPassword)}>
+            <Ionicons
+              name={showPassword ? 'eye' : 'eye-off'}
+              size={22}
+              color="white"
+            />
+          </TouchableOpacity>
         </View>
-        <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'start', alignItems: 'center',
-        paddingHorizontal: 40}}>
-          <Image source={require('./assets/salada.png')} style={{width: 170, height: 110, borderRadius: 10}} />
-          <View style={{ marginLeft: 20}}>
-            <Text style={{fontSize: 20, fontWeight: 'bold'}}>Salada Simples</Text>
-            <Text style={{fontSize: 15, fontWeight: 200, marginLeft: 10}}>10-20 min.</Text>
-            <Text style={{fontSize: 15, fontWeight: 400, color: '#368212', marginLeft: 10}}>R$ 30,00</Text>
-          </View>
+        <Text style={styles.esqueciSenha}>Esqueci minha senha</Text>
+
+        <View style={styles.buttonContainer}>
+          <TouchableOpacity
+            style={[styles.button, { backgroundColor: '#2DBE60' }]}
+            onPress={handleLogin}>
+            <Text style={styles.buttonText}>Logar</Text>
+          </TouchableOpacity>
         </View>
-        </ScrollView>
-      <MenuBottom action='inicio' />
+      </View>
+      <View style={styles.noAcount} statusBarTranslucent={true}>
+        <Text style={styles.cadastrar}>
+          Não tem uma conta?
+          <Text style={styles.underCad}> Cadastre aqui</Text>
+        </Text>
       </View>
     </View>
-    </SafeAreaView>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#001B3D',
+    backgroundColor: '#001B3D', // fundo sólido (azul escuro baseado na marca)
     alignItems: 'center',
+    paddingTop: 130,
   },
-  Pesquisa: {
-    backgroundColor: '#fff',
-    width: '80%',
-    padding: 10,
-    borderRadius: 5
-  },
-  Section1: {
-    backgroundColor: '#ffffff',
+  section_1: {
     width: '100%',
-    height: 500,
+    paddingRight: 15,
+    paddingLeft: 15,
+  },
+  label: {
+    color: 'white',
+    fontSize: 16,
+    marginBottom: 5,
+    fontWeight: 'bold',
+    alignSelf: 'flex-start',
+  },
+  input: {
+    width: '100%',
+    padding: 10,
+    borderWidth: 1,
+    borderColor: '#fff',
+    backgroundColor: 'rgba(255, 255, 255, 0.15)',
+    color: 'white',
+    marginBottom: 20,
+    borderRadius: 5,
+  },
+  inputWrapper: {
+    position: 'relative',
+    justifyContent: 'center',
+    width: '100%',
+  },
+  inputSenha: {
+    width: '100%',
+    padding: 10,
+    borderWidth: 1,
+    borderColor: '#fff',
+    backgroundColor: 'rgba(255, 255, 255, 0.15)',
+    color: 'white',
+    marginBottom: 20,
+    borderRadius: 5,
+  },
+  icon: {
+    position: 'absolute',
+    right: 10,
+    top: 9,
+  },
+  buttonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '100%',
+  },
+  button: {
+    flex: 1,
+    padding: 12,
+    borderRadius: 5,
+  },
+  buttonText: {
+    color: 'white',
+    textAlign: 'center',
+    fontWeight: 'bold',
+  },
+  esqueciSenha: {
+    color: 'rgba(255, 255, 255, 0.7)',
+    paddingBottom: 10,
+    textDecorationLine: 'underline',
+    paddingRight: '55%',
+    cursor: 'pointer',
+  },
+  noAcount: {
+    width: '100%',
+    backgroundColor: '#11447D',
+    padding: 18,
+    textAlign: 'center',
+    alignItems: 'center',
     position: 'absolute',
     bottom: 0,
-    borderTopLeftRadius: 50,
-    borderTopRightRadius: 50,
-    paddingTop: 20,
   },
-  Header: {
-    width: '80%',
-    marginTop: 50,
+  cadastrar: {
+    color: 'white',
+    paddingBottom: 10,
+  },
+  underCad: {
+    textDecorationLine: 'underline',
+    color: '#2DBE60',
+    cursor: 'pointer',
+    paddingLeft: 3,
+    left: 5,
   },
 });

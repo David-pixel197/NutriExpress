@@ -15,7 +15,7 @@ export default function MenuBottom ({ action }) {
         <Image source={require('../assets/Pedidos.png')} style={{ tintColor: action === 'pedidos' ? '#6A99D7' : '#fff' ,
          width: 30, height: 45}} />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate('Login')} >
+        <TouchableOpacity onPress={() => navigation.navigate('Perfil')} >
         <Image source={require('../assets/Perfil.png')} style={{ tintColor: action === 'perfil' ? '#6A99D7' : '#fff' ,
          width: 30, height: 45}} />
         </TouchableOpacity>

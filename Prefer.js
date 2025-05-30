@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
   TextoHome: {
     marginTop: 20,
     marginLeft: 30,
-    fontSize: 20,
+    fontSize: 15,
     fontFamily: 'Inter',
   },
   inputHome: {
