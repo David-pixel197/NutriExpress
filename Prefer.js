@@ -47,7 +47,7 @@ export default function Prefer ({ navigation }){
             setValue={setValue}
             setItems={setItems}
             placeholder="Escolha uma opção..."
-            style={{ marginBottom: open ? 10 : 10, marginTop: 20, width: '80%', marginLeft: 30, color: open ? '#fff' : '#000' }}
+            style={{ marginBottom: open ? 10 : 10, marginTop: 20, width: '85%', marginLeft: 30, color: open ? '#fff' : '#000' }}
           />
         <Text style={styles.TextoHome}>Qual o seu peso?</Text>
         <TextInput
@@ -61,8 +61,10 @@ export default function Prefer ({ navigation }){
             placeholder="Altura (Cm)..."
             placeholderTextColor="#000"
           />
-          <Text style={[styles.TextoHome, {marginLeft: 30, marginTop: 10, color: 'rgba(0, 0, 0, 0.5)',}]}>Vamos utilizar essas informações para</Text>
-          <Text style={[styles.TextoHome, {marginLeft: 40, marginTop: 0, color: 'rgba(0, 0, 0, 0.5)',}]}>personalizar sua experiência no app.</Text>
+          <View style={{alignItems: 'center', width: '100%',}}>
+            <Text style={[{fontSize: 15, color: 'rgba(0, 0, 0, 0.5)',}]}>Vamos utilizar essas informações para</Text>
+            <Text style={[{fontSize: 15, color: 'rgba(0, 0, 0, 0.5)',}]}>personalizar sua experiência no app.</Text>
+          </View>
           <View style={styles.buttonContainer}>
             <TouchableOpacity
               style={[styles.button, { backgroundColor: '#2DBE60' }]} onPress={IrHome}>
@@ -101,7 +103,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Inter',
   },
   inputHome: {
-    width: '80%',
+    width: '85%',
     padding: 10,
     borderWidth: 1,
     borderColor: '#000',

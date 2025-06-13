@@ -8,16 +8,19 @@ import {
   ScrollView,
   SafeAreaView,
   Dimensions,
+  TouchableOpacity,
 } from 'react-native';
 import { useFonts } from 'expo-font';
-import MenuBottom from './components/MenuBottom'
+import MenuBottom from './components/MenuBottom';
+import { useNavigation } from '@react-navigation/native';
 
 export default function Home (){
+  const navigation = useNavigation();
+  const [expanded, setExpanded] = useState(false);
   const [fontsLoaded] = useFonts({
     Inter: require('./assets/static/Inter_18pt-Bold.ttf'),
   });
   if (!fontsLoaded) return null;
-  const [expanded, setExpanded] = useState(false);
   const screenHeight = Dimensions.get('window').height
 
   return (
@@ -26,10 +29,12 @@ export default function Home (){
       <View style={styles.Header}>
       <Text style={{color: '#fff', position: 'absolute', top: 15, left: -15,}}>Rua, 100 ▼</Text>
       <View style={{backgroundColor: '#fff', height: 45, width: 45, borderRadius: '100%', position: 'absolute', top: 5, right: -20, alignItems: 'center', justifyContent: 'center'}}>
-        <Image 
-          source={require('./assets/card.png')} 
-          style={{ width: 30, height: 30, tintColor: '#000' }} 
-      />
+        <TouchableOpacity onPress={() => {navigation.navigate('Carrinho');}}>
+          <Image 
+            source={require('./assets/card.png')} 
+            style={{ width: 30, height: 30, tintColor: '#000' }} 
+          />
+        </TouchableOpacity>
       </View>
       </View>
       <Image 
@@ -105,7 +110,7 @@ export default function Home (){
           </View>
           <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'start', alignItems: 'center',
           paddingHorizontal: 40, marginBottom: 20}}>
-            <Image source={require('./assets/Prato 2.jpeg')} style={{width: 150, height: 90, borderRadius: 10}} />
+            <Image source={require('./assets/Prato_2.jpeg')} style={{width: 150, height: 90, borderRadius: 10}} />
             <View style={{ marginLeft: 20}}>
               <Text style={{fontSize: 20, fontWeight: 'bold'}}>Salada Completa</Text>
               <Text style={{fontSize: 15, fontWeight: 200, marginLeft: 10}}>15-20 min.</Text>
@@ -114,7 +119,7 @@ export default function Home (){
           </View>
           <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'start', alignItems: 'center',
           paddingHorizontal: 40, marginBottom: 20}}>
-            <Image source={require('./assets/Prato 1.jpeg')} style={{width: 150, height: 90, borderRadius: 10}} />
+            <Image source={require('./assets/Prato_1.jpeg')} style={{width: 150, height: 90, borderRadius: 10}} />
             <View style={{ marginLeft: 20}}>
               <Text style={{fontSize: 20, fontWeight: 'bold'}}>Salada Premium</Text>
               <Text style={{fontSize: 15, fontWeight: 200, marginLeft: 10}}>10-30 min.</Text>
@@ -127,7 +132,7 @@ export default function Home (){
           <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
           <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'start', alignItems: 'center',
           paddingHorizontal: 40, marginBottom: 20}}>
-            <Image source={require('./assets/Açai.jpeg')} style={{width: 150, height: 90, borderRadius: 10}} />
+            <Image source={require('./assets/Acai.jpeg')} style={{width: 150, height: 90, borderRadius: 10}} />
             <View style={{ marginLeft: 20}}>
               <Text style={{fontSize: 20, fontWeight: 'bold'}}>Açai Tradicional</Text>
               <Text style={{fontSize: 15, fontWeight: 200, marginLeft: 10}}>10-15 min.</Text>
@@ -145,7 +150,7 @@ export default function Home (){
           </View>
           <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'start', alignItems: 'center',
           paddingHorizontal: 40, marginBottom: 20}}>
-            <Image source={require('./assets/Prato Arroz e Feijão.jpeg')} style={{width: 150, height: 90, borderRadius: 10}} />
+            <Image source={require('./assets/PF.jpeg')} style={{width: 150, height: 90, borderRadius: 10}} />
             <View style={{ marginLeft: 20}}>
               <Text style={{fontSize: 20, fontWeight: 'bold'}}>PF Proteico</Text>
               <Text style={{fontSize: 15, fontWeight: 200, marginLeft: 10}}>10-30 min.</Text>

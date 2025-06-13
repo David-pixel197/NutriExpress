@@ -1,8 +1,10 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity, ScrollView, SafeAreaView } from 'react-native';
 import MenuBottom from './components/MenuBottom';
+import { useNavigation } from '@react-navigation/native';
 
 export default function Perfil() {
+  const navigation = useNavigation();
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollContent}>
@@ -20,7 +22,7 @@ export default function Perfil() {
           <Option label="Outras Configurações" />
           <Option label="Calendários de Pedidos" />
           <Option label="Informações de Pagamento" />
-          <Option label="Sair" />
+          <Option label="Sair" func={() => {navigation.navigate('Login');}} />
         </View>
       </ScrollView>
       <MenuBottom action='perfil' />
@@ -28,8 +30,8 @@ export default function Perfil() {
   );
 }
 
-const Option = ({ label }) => (
-  <TouchableOpacity style={styles.option}>
+const Option = ({ label, func }) => (
+  <TouchableOpacity style={styles.option} onPress={func}>
     <Text style={styles.optionText}>{label}</Text>
   </TouchableOpacity>
 );
