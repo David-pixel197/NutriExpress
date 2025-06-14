@@ -9,13 +9,13 @@ import {
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
-export default function Login({ navigation }) {
+export default function Cadastro({ navigation }) {
   const [firstName, setFirstName] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
 
   const handleLogin = () => {
-    navigation.navigate('Prefer');
+    navigation.navigate('Login');
   };
 
   return (
@@ -33,7 +33,14 @@ export default function Login({ navigation }) {
           value={firstName}
           onChangeText={setFirstName}
         />
-
+        <Text style={styles.label}>Telefone</Text>
+        <TextInput
+          style={styles.input}
+          placeholder="Digite seu número de celular..."
+          placeholderTextColor="#ccc"
+          value={firstName}
+          onChangeText={setFirstName}
+        />
         <Text style={styles.label}>SENHA</Text>
         <View style={styles.inputWrapper}>
           <TextInput
@@ -54,21 +61,15 @@ export default function Login({ navigation }) {
             />
           </TouchableOpacity>
         </View>
-        <Text style={styles.esqueciSenha}>Esqueci minha senha</Text>
+        <Text style={styles.esqueciSenha} OnPress={handleLogin} >Já tenho uma conta</Text>
 
         <View style={styles.buttonContainer}>
           <TouchableOpacity
             style={[styles.button, { backgroundColor: '#2DBE60' }]}
             onPress={handleLogin}>
-            <Text style={styles.buttonText}>Logar</Text>
+            <Text style={styles.buttonText}>Cadastrar-se</Text>
           </TouchableOpacity>
         </View>
-      </View>
-      <View style={styles.noAcount} statusBarTranslucent={true}>
-        <Text style={styles.cadastrar}>
-          Não tem uma conta?
-          <Text style={styles.underCad} onPress={() => {navigation.navigate('Cadastro')}}> Cadastre aqui</Text>
-        </Text>
       </View>
     </View>
   );
@@ -79,7 +80,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#001B3D', // fundo sólido (azul escuro baseado na marca)
     alignItems: 'center',
-    paddingTop: 130,
+    paddingTop: 100,
   },
   section_1: {
     width: '100%',

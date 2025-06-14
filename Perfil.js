@@ -2,6 +2,8 @@ import React from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity, ScrollView, SafeAreaView } from 'react-native';
 import MenuBottom from './components/MenuBottom';
 import { useNavigation } from '@react-navigation/native';
+import Icon from 'react-native-vector-icons/Feather';
+
 
 export default function Perfil() {
   const navigation = useNavigation();
@@ -17,12 +19,13 @@ export default function Perfil() {
           <Text style={styles.email}>email@exemplo.com</Text>
         </View>
         <View style={styles.optionsContainer}>
-          <Option label="Configuração da Conta" />
-          <Option label="Meus Endereços" />
-          <Option label="Outras Configurações" />
-          <Option label="Calendários de Pedidos" />
-          <Option label="Informações de Pagamento" />
-          <Option label="Sair" func={() => {navigation.navigate('Login');}} />
+          <Option label="Configuração da Conta" iconName="settings" />
+          <Option label="Meus Endereços" iconName="map-pin" />
+          <Option label="Outras Configurações" iconName="sliders" />
+          <Option label="Calendários de Pedidos" iconName="calendar" />
+          <Option label="Informações de Pagamento" iconName="credit-card" />
+          <Option label="Informações legais" iconName="file-text"/>
+          <Option label="Sair" iconName="log-out" func={() => navigation.navigate('Login')} />
         </View>
       </ScrollView>
       <MenuBottom action='perfil' />
@@ -30,11 +33,13 @@ export default function Perfil() {
   );
 }
 
-const Option = ({ label, func }) => (
-  <TouchableOpacity style={styles.option} onPress={func}>
+const Option = ({ label, iconName, func }) => (
+  <TouchableOpacity onPress={func} style={styles.option}>
+    <Icon name={iconName} size={20} color="#333" style={styles.optionIcon} />
     <Text style={styles.optionText}>{label}</Text>
   </TouchableOpacity>
 );
+
 
 const styles = StyleSheet.create({
   container: {
@@ -79,15 +84,18 @@ const styles = StyleSheet.create({
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
-      height: 2,
+      height: 3,
     },
     shadowOpacity: 1,
     shadowRadius: 5,
-    elevation: 2,
+    elevation: 5,
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   optionText: {
     fontSize: 18,
     color: '#001B3D',
     fontWeight: '600',
+    marginLeft: 10,
   },
 });

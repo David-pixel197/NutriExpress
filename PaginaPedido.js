@@ -52,9 +52,9 @@ export default function PaginaPedido() {
                         <View style={{ flex: 1, marginLeft: 10 }}>
                             <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                             <Text style={{ fontSize: 18, fontWeight: 'bold' }}>Feijoada Fit</Text>
-                            <Text style={{ fontSize: 16, fontWeight: '500', color: '#368212' }}>R$ 25,00</Text>
+                            <Text style={{ fontSize: 16, fontWeight: '500', color: '#368212' }}>R$ 20,00</Text>
                         </View>
-                            <Text style={{ fontSize: 12, color: '#555', marginTop: 5 }}>Igual a salada simples, mas essa é completa.</Text>
+                            <Text style={{ fontSize: 12, color: '#555', marginTop: 5 }}>Preparada com cortes magros, feijão preto rico em fibras e zero excessos.</Text>
                         </View>
                     </View>
                 </View>

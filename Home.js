@@ -13,6 +13,7 @@ import {
 import { useFonts } from 'expo-font';
 import MenuBottom from './components/MenuBottom';
 import { useNavigation } from '@react-navigation/native';
+import { MaisPedidos, MaisRapidos, Promocoes } from './Produtos';
 
 export default function Home (){
   const navigation = useNavigation();
@@ -99,95 +100,53 @@ export default function Home (){
           </View>
           <Text style={{fontSize:20, marginTop: 10, marginBottom: 5, marginLeft: 20, fontWeight: 'bold'}}>Mais Pedido 🔥</Text>
           <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-          <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'start', alignItems: 'center',
-          paddingHorizontal: 40, marginBottom: 20}}>
-            <Image source={require('./assets/salada.png')} style={{width: 150, height: 90, borderRadius: 10}} />
-            <View style={{ marginLeft: 20}}>
-              <Text style={{fontSize: 20, fontWeight: 'bold'}}>Salada Simples</Text>
-              <Text style={{fontSize: 15, fontWeight: 200, marginLeft: 10}}>10-20 min.</Text>
-              <Text style={{fontSize: 15, fontWeight: 400, color: '#368212', marginLeft: 10}}>R$ 20,00 + Frete</Text>
-            </View>
-          </View>
-          <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'start', alignItems: 'center',
-          paddingHorizontal: 40, marginBottom: 20}}>
-            <Image source={require('./assets/Prato_2.jpeg')} style={{width: 150, height: 90, borderRadius: 10}} />
-            <View style={{ marginLeft: 20}}>
-              <Text style={{fontSize: 20, fontWeight: 'bold'}}>Salada Completa</Text>
-              <Text style={{fontSize: 15, fontWeight: 200, marginLeft: 10}}>15-20 min.</Text>
-              <Text style={{fontSize: 15, fontWeight: 400, color: '#368212', marginLeft: 10}}>R$ 25,00 + Frete</Text>
-            </View>
-          </View>
-          <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'start', alignItems: 'center',
-          paddingHorizontal: 40, marginBottom: 20}}>
-            <Image source={require('./assets/Prato_1.jpeg')} style={{width: 150, height: 90, borderRadius: 10}} />
-            <View style={{ marginLeft: 20}}>
-              <Text style={{fontSize: 20, fontWeight: 'bold'}}>Salada Premium</Text>
-              <Text style={{fontSize: 15, fontWeight: 200, marginLeft: 10}}>10-30 min.</Text>
-              <Text style={{fontSize: 15, fontWeight: 400, color: '#368212', marginLeft: 10}}>R$ 30,00 + Frete</Text>
-            </View>
-          </View>
+            {MaisPedidos.map((item) => (
+              <TouchableOpacity key={item.id} style={{ display: 'flex', flexDirection: 'row', alignItems: 'center',
+              paddingHorizontal: 40, marginBottom: 20}} onPress={() => {navigation.navigate('InfoProdutos', {produto: {
+                  urlProduto: item.id, nomeProduto: item.nome, precoProduto: item.preco
+              }});}}>
+                <Image source={item.urlImagem} style={{width: 150, height: 90, borderRadius: 10}} />
+                <View style={{ marginLeft: 20}}>
+                  <Text style={{fontSize: 20, fontWeight: 'bold'}}>{item.nome}</Text>
+                  <Text style={{fontSize: 15, fontWeight: 200, marginLeft: 10}}>{item.tempo}</Text>
+                  <Text style={{fontSize: 15, fontWeight: 400, color: '#368212', marginLeft: 10}}>{item.preco}</Text>
+                </View>
+              </TouchableOpacity>
+            ))}
           </ScrollView>
 
           <Text style={{fontSize:20, marginTop: 10, marginBottom: 5, marginLeft: 20, fontWeight: 'bold'}}>Mais Rápidos ⏳</Text>
           <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-          <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'start', alignItems: 'center',
-          paddingHorizontal: 40, marginBottom: 20}}>
-            <Image source={require('./assets/Acai.jpeg')} style={{width: 150, height: 90, borderRadius: 10}} />
-            <View style={{ marginLeft: 20}}>
-              <Text style={{fontSize: 20, fontWeight: 'bold'}}>Açai Tradicional</Text>
-              <Text style={{fontSize: 15, fontWeight: 200, marginLeft: 10}}>10-15 min.</Text>
-              <Text style={{fontSize: 15, fontWeight: 400, color: '#368212', marginLeft: 10}}>R$ 15,00 + Frete</Text>
-            </View>
-          </View>
-          <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'start', alignItems: 'center',
-          paddingHorizontal: 40, marginBottom: 20}}>
-            <Image source={require('./assets/Feijoada.jpeg')} style={{width: 150, height: 90, borderRadius: 10}} />
-            <View style={{ marginLeft: 20}}>
-              <Text style={{fontSize: 20, fontWeight: 'bold'}}>Feijoada Fit</Text>
-              <Text style={{fontSize: 15, fontWeight: 200, marginLeft: 10}}>15-20 min.</Text>
-              <Text style={{fontSize: 15, fontWeight: 400, color: '#368212', marginLeft: 10}}>R$ 25,00 + Frete</Text>
-            </View>
-          </View>
-          <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'start', alignItems: 'center',
-          paddingHorizontal: 40, marginBottom: 20}}>
-            <Image source={require('./assets/PF.jpeg')} style={{width: 150, height: 90, borderRadius: 10}} />
-            <View style={{ marginLeft: 20}}>
-              <Text style={{fontSize: 20, fontWeight: 'bold'}}>PF Proteico</Text>
-              <Text style={{fontSize: 15, fontWeight: 200, marginLeft: 10}}>10-30 min.</Text>
-              <Text style={{fontSize: 15, fontWeight: 400, color: '#368212', marginLeft: 10}}>R$ 30,00 + Frete</Text>
-            </View>
-          </View>
+            {MaisRapidos.map((item) => (
+              <TouchableOpacity key={item.id} style={{ display: 'flex', flexDirection: 'row', justifyContent: 'start', alignItems: 'center',
+              paddingHorizontal: 40, marginBottom: 20}} onPress={() => {navigation.navigate('InfoProdutos', {produto: {
+                urlProduto: item.id, nomeProduto: item.nome, precoProduto: item.preco
+              }});}}>
+                <Image source={item.urlImagem} style={{width: 150, height: 90, borderRadius: 10}} />
+                <View style={{ marginLeft: 20}}>
+                  <Text style={{fontSize: 20, fontWeight: 'bold'}}>{item.nome}</Text>
+                  <Text style={{fontSize: 15, fontWeight: 200, marginLeft: 10}}>{item.tempo}</Text>
+                  <Text style={{fontSize: 15, fontWeight: 400, color: '#368212', marginLeft: 10}}>{item.preco}</Text>
+                </View>
+              </TouchableOpacity>
+            ))}
           </ScrollView>
 
           <Text style={{fontSize:20, marginTop: 10, marginBottom: 5, marginLeft: 20, fontWeight: 'bold'}}>Promoções 🤑</Text>
           <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-          <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'start', alignItems: 'center',
-          paddingHorizontal: 40, marginBottom: 20}}>
-            <Image source={require('./assets/Lasanha.jpeg')} style={{width: 150, height: 90, borderRadius: 10}} />
-            <View style={{ marginLeft: 20}}>
-              <Text style={{fontSize: 20, fontWeight: 'bold'}}>Lasanha</Text>
-              <Text style={{fontSize: 15, fontWeight: 200, marginLeft: 10}}>5-15 min.</Text>
-              <Text style={{fontSize: 15, fontWeight: 400, color: '#368212', marginLeft: 10}}>R$ 15,00 + Frete</Text>
-            </View>
-          </View>
-          <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'start', alignItems: 'center',
-          paddingHorizontal: 40, marginBottom: 20}}>
-            <Image source={require('./assets/Hamburger.jpeg')} style={{width: 150, height: 90, borderRadius: 10}} />
-            <View style={{ marginLeft: 20}}>
-              <Text style={{fontSize: 20, fontWeight: 'bold'}}>Hambúrguer</Text>
-              <Text style={{fontSize: 15, fontWeight: 200, marginLeft: 10}}>15-20 min.</Text>
-              <Text style={{fontSize: 15, fontWeight: 400, color: '#368212', marginLeft: 10}}>R$ 25,00 + Frete</Text>
-            </View>
-          </View>
-          <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'start', alignItems: 'center',
-          paddingHorizontal: 40, marginBottom: 20}}>
-            <Image source={require('./assets/Sorvete.jpeg')} style={{width: 150, height: 90, borderRadius: 10}} />
-            <View style={{ marginLeft: 20}}>
-              <Text style={{fontSize: 20, fontWeight: 'bold'}}>Sorvete</Text>
-              <Text style={{fontSize: 15, fontWeight: 200, marginLeft: 10}}>10-30 min.</Text>
-              <Text style={{fontSize: 15, fontWeight: 400, color: '#368212', marginLeft: 10}}>R$ 30,00 + Frete</Text>
-            </View>
-          </View>
+          {Promocoes.map((item) => (
+            <TouchableOpacity key={item.id} style={{ display: 'flex', flexDirection: 'row', justifyContent: 'start', alignItems: 'center',
+            paddingHorizontal: 40, marginBottom: 20}} onPress={() => {navigation.navigate('InfoProdutos', {produto: {
+                urlProduto: item.id, nomeProduto: item.nome, precoProduto: item.preco
+            }});}}>
+              <Image source={item.urlImagem} style={{width: 150, height: 90, borderRadius: 10}} />
+              <View style={{ marginLeft: 20}}>
+                <Text style={{fontSize: 20, fontWeight: 'bold'}}>{item.nome}</Text>
+                <Text style={{fontSize: 15, fontWeight: 200, marginLeft: 10}}>{item.tempo}</Text>
+                <Text style={{fontSize: 15, fontWeight: 400, color: '#368212', marginLeft: 10}}>{item.preco}</Text>
+              </View>
+            </TouchableOpacity>
+          ))}
           </ScrollView>
         </ScrollView>
       <MenuBottom action='inicio' />

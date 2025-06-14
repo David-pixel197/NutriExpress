@@ -63,12 +63,12 @@ export default function Carrinho(){
         </View>
     </View>
     <View style={styles.footer}>
-        <View style={styles.botoes}>
+        <TouchableOpacity style={styles.botoes} onPress={() => {navigation.navigate('Pedidos');}}>
             <Text style={{fontSize: 20, fontWeight: 'bold'}}>Pedir Agora</Text>
-        </View>
-        <View style={styles.botoes}>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.botoes} onPress={() => {navigation.navigate('Pedidos');}}>
           <Text style={{fontSize: 20, fontWeight: 'bold'}}>Agendar Pedido</Text>
-        </View>
+        </TouchableOpacity>
       </View>
     </View>
   );
